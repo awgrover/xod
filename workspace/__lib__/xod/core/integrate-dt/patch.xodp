@@ -1,0 +1,145 @@
+{
+  "description": "Integrated value so far",
+  "links": [
+    {
+      "id": "BJJCDDl37",
+      "input": {
+        "nodeId": "B1hUDDlhX",
+        "pinKey": "HJAq-A_8-"
+      },
+      "output": {
+        "nodeId": "HJ_iDDln7",
+        "pinKey": "__out__"
+      }
+    },
+    {
+      "id": "BkWLDPghQ",
+      "input": {
+        "nodeId": "SklIHPeh7",
+        "pinKey": "B1GfLR_SPk-"
+      },
+      "output": {
+        "nodeId": "SJsHvDehQ",
+        "pinKey": "__out__"
+      }
+    },
+    {
+      "id": "ByhDDPen7",
+      "input": {
+        "nodeId": "HJOwwwlhX",
+        "pinKey": "__in__"
+      },
+      "output": {
+        "nodeId": "B1hUDDlhX",
+        "pinKey": "r1yhZRd8W"
+      }
+    },
+    {
+      "id": "HJ8TDwxnX",
+      "input": {
+        "nodeId": "B1hUDDlhX",
+        "pinKey": "SkUjZA_L-"
+      },
+      "output": {
+        "nodeId": "S1LhPPl37",
+        "pinKey": "__out__"
+      }
+    },
+    {
+      "id": "HyoiPwx2Q",
+      "input": {
+        "nodeId": "HJSSHvl3X",
+        "pinKey": "H1NuAXqEM"
+      },
+      "output": {
+        "nodeId": "HJ_iDDln7",
+        "pinKey": "__out__"
+      }
+    },
+    {
+      "id": "SkeUwDl3m",
+      "input": {
+        "nodeId": "SklIHPeh7",
+        "pinKey": "SJ4zUC_BD1-"
+      },
+      "output": {
+        "nodeId": "HJSSHvl3X",
+        "pinKey": "B1OK07cVz"
+      }
+    },
+    {
+      "id": "SyJvwDx2m",
+      "input": {
+        "nodeId": "B1hUDDlhX",
+        "pinKey": "HJvqZ0dLZ"
+      },
+      "output": {
+        "nodeId": "SklIHPeh7",
+        "pinKey": "BkQzLCurwJZ"
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "id": "B1hUDDlhX",
+      "position": {
+        "x": 204,
+        "y": 306
+      },
+      "type": "xod/core/count"
+    },
+    {
+      "description": "The accumulated value.",
+      "id": "HJOwwwlhX",
+      "position": {
+        "x": 204,
+        "y": 408
+      },
+      "type": "xod/patch-nodes/output-number"
+    },
+    {
+      "id": "HJSSHvl3X",
+      "position": {
+        "x": 170,
+        "y": 102
+      },
+      "type": "xod/core/delta-time"
+    },
+    {
+      "description": "Push a new value",
+      "id": "HJ_iDDln7",
+      "label": "PUSH",
+      "position": {
+        "x": 238,
+        "y": 0
+      },
+      "type": "xod/patch-nodes/input-pulse"
+    },
+    {
+      "description": "Resets the output to 0",
+      "id": "S1LhPPl37",
+      "label": "RST",
+      "position": {
+        "x": 272,
+        "y": 0
+      },
+      "type": "xod/patch-nodes/input-pulse"
+    },
+    {
+      "id": "SJsHvDehQ",
+      "position": {
+        "x": 136,
+        "y": 0
+      },
+      "type": "xod/patch-nodes/input-number"
+    },
+    {
+      "id": "SklIHPeh7",
+      "position": {
+        "x": 136,
+        "y": 204
+      },
+      "type": "xod/core/multiply"
+    }
+  ]
+}
