@@ -5,7 +5,7 @@ struct State {};
 {{ GENERATED_CODE }}
 // clang-format on
 
-float hueToRGB(float v1, float v2, float vH) {
+float hueToRgb(float v1, float v2, float vH) {
   if (vH < 0) vH += 1.0f;
 
   if (vH > 1.0f) vH -= 1.0f;
@@ -32,9 +32,9 @@ void evaluate(Context ctx) {
     float v2 = (l < 0.5) ? (l * (1.0f + s)) : ((l + s) - (l * s));
     float v1 = 2.0f * l - v2;
 
-    r = round(255.0f * hueToRGB(v1, v2, h + (1.0f / 3.0f)));
-    g = round(255.0f * hueToRGB(v1, v2, h));
-    b = round(255.0f * hueToRGB(v1, v2, h - (1.0f / 3.0f)));
+    r = round(255.0f * hueToRgb(v1, v2, h + (1.0f / 3.0f)));
+    g = round(255.0f * hueToRgb(v1, v2, h));
+    b = round(255.0f * hueToRgb(v1, v2, h - (1.0f / 3.0f)));
   }
 
   ValueType<output_OUT>::T obj = {r, g, b};
