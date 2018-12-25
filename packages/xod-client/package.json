@@ -61,6 +61,7 @@
     "url-search-params-polyfill": "^2.0.1",
     "vec-la-fp": "^1.5.2",
     "xod-arduino": "^0.25.2",
+    "xod-cloud-tabtest": "^0.25.3",
     "xod-func-tools": "^0.25.0",
     "xod-patch-search": "^0.25.2",
     "xod-pm": "^0.25.2",
