@@ -19,7 +19,7 @@ describe('end-to-end test', () => {
           generatePatchSuite(project, '@/bcd-to-dec')
         )
       )
-      .then(compileSuite('xod.show')) // TODO
+      .then(compileSuite('xod.io'))
       .then(
         R.tap(compiledSuite => {
           assert.isObject(compiledSuite.options);

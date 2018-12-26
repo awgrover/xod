@@ -10,6 +10,8 @@
   XODMOD  based on compiled tabtest @/log-10
   XODMOD
   XODMOD  All modified lines marked with tag XODMOD
+  XODMOD  Get new version from https://api.xod.io/compiler/enqueue
+  XODMOD  by setting 'includeRuntime' option to 'true'
   XODMOD*/
 
 var Module = (function() {

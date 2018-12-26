@@ -3,7 +3,7 @@ import str2ab from 'string-to-arraybuffer';
 import { createError } from 'xod-func-tools';
 
 import * as EC from './errorCodes';
-import Runtime from './runtime';
+import Runtime from '../vendor/runtime';
 
 // :: { artifacts: { wasmBinary: "..." }, options: { ... } } -> Promise Error { stdout, stderr }
 const runSuite = compiledSuite => {
