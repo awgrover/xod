@@ -90,6 +90,14 @@
       "type": "@/format-color"
     },
     {
+      "id": "HytGuBMWV",
+      "position": {
+        "x": 204,
+        "y": 102
+      },
+      "type": "xod/patch-nodes/tabtest"
+    },
+    {
       "id": "S1PSVJdxV",
       "position": {
         "x": 0,

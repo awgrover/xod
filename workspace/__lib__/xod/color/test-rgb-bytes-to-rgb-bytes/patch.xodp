@@ -104,6 +104,14 @@
       "type": "xod/patch-nodes/utility"
     },
     {
+      "id": "HJmBOBGWE",
+      "position": {
+        "x": 272,
+        "y": 102
+      },
+      "type": "xod/patch-nodes/tabtest"
+    },
+    {
       "id": "HkircnDeN",
       "position": {
         "x": 68,

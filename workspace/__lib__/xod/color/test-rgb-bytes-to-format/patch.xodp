@@ -66,6 +66,14 @@
       "type": "@/color-rgb-bytes"
     },
     {
+      "id": "By_VdrfZV",
+      "position": {
+        "x": 204,
+        "y": 102
+      },
+      "type": "xod/patch-nodes/tabtest"
+    },
+    {
       "id": "Bywp_RwgE",
       "position": {
         "x": 33,

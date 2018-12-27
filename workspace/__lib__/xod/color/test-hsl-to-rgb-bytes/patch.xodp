@@ -150,6 +150,14 @@
         "y": 204
       },
       "type": "@/to-rgb-bytes"
+    },
+    {
+      "id": "ryzNOSG-V",
+      "position": {
+        "x": 204,
+        "y": 102
+      },
+      "type": "xod/patch-nodes/tabtest"
     }
   ]
 }

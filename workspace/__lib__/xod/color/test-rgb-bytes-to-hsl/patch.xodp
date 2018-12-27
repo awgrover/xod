@@ -128,6 +128,14 @@
       "type": "@/to-hsl"
     },
     {
+      "id": "HkT4OBGZ4",
+      "position": {
+        "x": 204,
+        "y": 102
+      },
+      "type": "xod/patch-nodes/tabtest"
+    },
+    {
       "id": "Hkbiz6wlV",
       "position": {
         "x": 0,
