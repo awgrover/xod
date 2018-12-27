@@ -37,13 +37,23 @@ const markDeadPatches = R.curry((errors, patch) =>
   )
 );
 
-// :: Patch -> Patch
-const markDeprecatedPatches = patch =>
-  R.assoc('isDeprecated', XP.isDeprecatedPatch(patch), patch);
+// :: StrMap PatchPath PathFlags -> Patch -> Patch
+const markDeprecatedPatches = R.curry((patchFlags, patch) =>
+  R.compose(
+    R.assoc('isDeprecated', R.__, patch),
+    patchPath => R.pathOr(false, [patchPath, 'deprecated'], patchFlags),
+    XP.getPatchPath
+  )(patch)
+);
 
-// :: Patch -> Patch
-const markUtilityPatches = patch =>
-  R.assoc('isUtility', XP.isUtilityPatch(patch), patch);
+// :: StrMap PatchPath PathFlags -> Patch -> Patch
+const markUtilityPatches = R.curry((patchFlags, patch) =>
+  R.compose(
+    R.assoc('isUtility', R.__, patch),
+    patchPath => R.pathOr(false, [patchPath, 'utility'], patchFlags),
+    XP.getPatchPath
+  )(patch)
+);
 
 const getPatchPaths = R.pipe(R.indexBy(XP.getPatchPath), R.keys);
 // :: [Patch] -> [Patch] -> Boolean
@@ -55,15 +65,19 @@ const getLocalPatchesList = createSelector(
 );
 
 export const getLocalPatches = createMemoizedSelector(
-  [HintingSelectors.getErrors, getLocalPatchesList],
-  [R.equals, samePatchPaths],
-  (errors, patches) =>
+  [
+    HintingSelectors.getErrors,
+    HintingSelectors.getPatchFlags,
+    getLocalPatchesList,
+  ],
+  [R.equals, R.equals, samePatchPaths],
+  (errors, patchFlags, patches) =>
     R.compose(
       R.sortBy(XP.getPatchPath),
       R.map(
         R.compose(
-          markUtilityPatches,
-          markDeprecatedPatches,
+          markUtilityPatches(patchFlags),
+          markDeprecatedPatches(patchFlags),
           markDeadPatches(errors)
         )
       )
@@ -87,17 +101,21 @@ const getLibraryPatchesList = createSelector(
 );
 
 export const getLibs = createMemoizedSelector(
-  [HintingSelectors.getErrors, getLibraryPatchesList],
-  [R.equals, samePatchPaths],
-  (errors, patches) =>
+  [
+    HintingSelectors.getErrors,
+    HintingSelectors.getPatchFlags,
+    getLibraryPatchesList,
+  ],
+  [R.equals, R.equals, samePatchPaths],
+  (errors, patchFlags, patches) =>
     R.compose(
       R.map(R.sort(R.ascend(XP.getPatchPath))),
       R.groupBy(R.pipe(XP.getPatchPath, XP.getLibraryName)),
       R.reject(isPatchDeadTerminal),
       R.map(
         R.compose(
-          markUtilityPatches,
-          markDeprecatedPatches,
+          markUtilityPatches(patchFlags),
+          markDeprecatedPatches(patchFlags),
           markDeadPatches(errors)
         )
       )

@@ -43,4 +43,12 @@ export default {
      * },
      */
   ],
+  patchFlags: {
+    /**
+     * [PatchPath]: PatchFlags :: {
+     *   utility: Boolean,
+     *   deprecated: Boolean,
+     * }
+     */
+  },
 };

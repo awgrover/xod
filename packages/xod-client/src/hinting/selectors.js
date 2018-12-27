@@ -51,3 +51,5 @@ export const getPinErrors = R.curry((patchPath, nodeId, pinKey, errors) =>
     maybePath([patchPath, 'nodes', nodeId, 'pins', pinKey])
   )(errors)
 );
+
+export const getPatchFlags = R.compose(R.prop('patchFlags'), getHintingState);
