@@ -7,7 +7,9 @@ import {
   stringifyLibQuery,
   getLibName,
 } from 'xod-pm';
-import { foldMaybe, explodeMaybe } from 'xod-func-tools';
+import { generatePatchSuite } from 'xod-tabtest';
+import { compileSuite, runSuite } from 'xod-cloud-tabtest';
+import { foldMaybe, eitherToPromise, explodeMaybe } from 'xod-func-tools';
 
 import {
   SELECTION_ENTITY_TYPE,
@@ -55,7 +57,7 @@ import {
   resetClipboardEntitiesPosition,
 } from './utils';
 import { isInput, isEdge } from '../utils/browser';
-import { getPmSwaggerUrl } from '../utils/urls';
+import { getPmSwaggerUrl, HOSTNAME } from '../utils/urls';
 import {
   addPoints,
   subtractPoints,
@@ -327,12 +329,13 @@ export const switchPatch = patchPath => (dispatch, getState) => {
   }
 };
 
-export const openImplementationEditor = () => ({
-  type: ActionType.EDITOR_OPEN_IMPLEMENTATION_CODE,
+export const openAttachmentEditor = markerName => ({
+  type: ActionType.EDITOR_OPEN_ATTACHMENT,
+  payload: markerName,
 });
 
-export const closeImplementationEditor = () => ({
-  type: ActionType.EDITOR_CLOSE_IMPLEMENTATION_CODE,
+export const closeAttachmentEditor = () => ({
+  type: ActionType.EDITOR_CLOSE_ATTACHMENT,
 });
 
 export const switchTab = tabId => ({
@@ -496,7 +499,7 @@ export const pasteEntities = event => (dispatch, getState) => {
         R.compose(
           // check if selection is structurally the same as copied entities
           R.map(R.map(R.omit('id'))),
-          R.omit(['links', 'impl']),
+          R.omit(['links', 'attachments']),
           resetClipboardEntitiesPosition
         ),
         copiedEntities
@@ -539,8 +542,15 @@ export const pasteEntities = event => (dispatch, getState) => {
   });
 };
 
-export const cutEntities = event => dispatch => {
+export const cutEntities = event => (dispatch, getState) => {
   if (isInput(document.activeElement)) return;
+
+  const state = getState();
+  const isInTabtestEditorTab = Selectors.getCurrentTab(state)
+    .map(R.propEq('editedAttachment', XP.TABTEST_MARKER_PATH))
+    .getOrElse(false);
+
+  if (isInTabtestEditorTab) return;
 
   dispatch(copyEntities(event));
   dispatch(deleteSelection());
@@ -682,4 +692,57 @@ export const splitLinksToBuses = () => (dispatch, getState) => {
       },
     });
   });
+};
+
+export const selectConstantNodeValue = (nodeId, patchPath) => ({
+  type: ActionType.SELECT_CONSTANT_NODE_VALUE,
+  payload: {
+    nodeId,
+    patchPath,
+  },
+});
+
+export const runTabtest = patchPath => (dispatch, getState) => {
+  dispatch({ type: ActionType.TABTEST_RUN_REQUESTED });
+  const suiteP = R.compose(
+    eitherToPromise,
+    p => generatePatchSuite(p, patchPath),
+    ProjectSelectors.getProject
+  )(getState());
+
+  suiteP
+    .then(
+      R.tap(() => {
+        dispatch({ type: ActionType.TABTEST_GENERATED_CPP });
+      })
+    )
+    .then(compileSuite(HOSTNAME))
+    .then(
+      R.tap(() => {
+        dispatch({ type: ActionType.TABTEST_COMPILED });
+      })
+    )
+    .then(runSuite)
+    .then(({ stdout }) => {
+      dispatch(
+        addConfirmation({
+          title: 'Tests passed',
+          note: R.compose(R.join('\n'), R.reject(R.startsWith('======')))(
+            stdout
+          ),
+          persistent: true,
+        })
+      );
+
+      dispatch({
+        type: ActionType.TABTEST_RUN_FINISHED,
+        payload: { stdout },
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ActionType.TABTEST_ERROR,
+        payload: err,
+      });
+    });
 };

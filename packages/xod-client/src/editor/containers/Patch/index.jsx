@@ -348,11 +348,12 @@ const mapDispatchToProps = dispatch => ({
       setOffset: EditorActions.setCurrentPatchOffset,
       switchPatch: EditorActions.switchPatch,
       drillDown: DebuggerActions.drillDown,
-      openImplementationEditor: EditorActions.openImplementationEditor,
+      openAttachmentEditor: EditorActions.openAttachmentEditor,
       patchWorkareaResized: EditorActions.patchWorkareaResized,
       changeArityLevel: ProjectActions.changeArityLevel,
       splitLinksToBuses: EditorActions.splitLinksToBuses,
       addBusNode: ProjectActions.addBusNode,
+      selectConstantNodeValue: EditorActions.selectConstantNodeValue,
     },
     dispatch
   ),

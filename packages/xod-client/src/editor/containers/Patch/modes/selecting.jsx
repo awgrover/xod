@@ -225,8 +225,10 @@ const selectingMode = {
     });
   },
   onNodeDoubleClick(api, nodeId, patchPath) {
-    if (patchPath === XP.NOT_IMPLEMENTED_IN_XOD_PATH) {
-      api.props.actions.openImplementationEditor();
+    if (R.contains(patchPath, R.keys(XP.MANAGED_ATTACHMENT_FILENAMES))) {
+      api.props.actions.openAttachmentEditor(patchPath);
+    } else if (XP.isConstantNodeType(patchPath)) {
+      api.props.actions.selectConstantNodeValue(nodeId, api.props.patchPath);
     } else {
       api.props.actions.switchPatch(patchPath);
     }

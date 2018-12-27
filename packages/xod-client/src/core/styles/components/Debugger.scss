@@ -1,12 +1,3 @@
-.debug-session-stop-button {
-  padding: 8px 15px 10px 15px;
-
-  .fa {
-    margin-right: 0.25em;
-    color: $error;
-  }
-}
-
 .debugging-outdated {
   color: $apricot-light;
   font-family: $font-family-normal;
@@ -155,18 +146,7 @@
       user-select: text;
     }
 
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-      opacity: 0;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(white, 0.35);
-      border-radius: 3px;
-    }
+    @include styled-scrollbar();
 
     display: block;
     margin: 0;

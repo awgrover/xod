@@ -4,6 +4,7 @@ import { DEFAULT_PANNING_OFFSET } from '../project/nodeLayout';
 export default {
   currentTabId: '@/main',
   isHelpboxVisible: false,
+  isTabtestRunning: false,
   focusedArea: FOCUS_AREAS.WORKAREA,
   draggedPreviewSize: { width: 0, height: 0 },
   suggester: {
@@ -19,6 +20,7 @@ export default {
       patchPath: '@/main',
       selection: [],
       linkingPin: null,
+      editedAttachment: null,
       offset: DEFAULT_PANNING_OFFSET,
     },
   },

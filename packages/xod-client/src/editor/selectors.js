@@ -21,10 +21,10 @@ export const editorLens = R.lensProp('editor');
 //
 export const getTabs = R.pipe(getEditor, R.prop('tabs'));
 
-export const getImplEditorTabs = R.pipe(
+export const getAttachmentEditorTabs = R.pipe(
   getTabs,
   R.values,
-  R.filter(R.prop('isEditingCppImplementation'))
+  R.filter(R.prop('editedAttachment'))
 );
 
 export const getCurrentTabId = R.pipe(getEditor, R.prop('currentTabId'), Maybe);
@@ -217,4 +217,9 @@ export const isPanelAutohiding = R.uncurryN(2, panelId =>
 );
 export const getPanelSidebar = R.uncurryN(2, panelId =>
   R.compose(R.prop('sidebar'), getPanelSettings(panelId))
+);
+
+export const isTabtestRunning = R.compose(
+  R.prop('isTabtestRunning'),
+  getEditor
 );
