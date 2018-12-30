@@ -13,6 +13,15 @@ void evaluate(Context ctx) {
         return;
     }
 
+    if (!isInputDirty<input_PULL>(ctx)) {
+        const bool pull_up = getValue<input_PULL>(ctx);
+        if (pull_up) {
+            ::pinMode(port, INPUT_PULLUP);
+        else {
+            ::pinMode(port, INPUT);
+        }
+    }
+
     ::pinMode(port, INPUT);
     emitValue<output_SIG>(ctx, ::digitalRead(port));
     emitValue<output_DONE>(ctx, 1);

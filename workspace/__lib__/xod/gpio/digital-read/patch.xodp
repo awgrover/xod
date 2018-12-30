@@ -25,6 +25,16 @@
       "type": "xod/patch-nodes/output-boolean"
     },
     {
+      "description": "If false, PORT will be set to INPUT (the typical value for digitalRead).\nIf true, set PORT to INPUT_PULLUP to enable built-in pullup resistor for things like switches.",
+      "id": "BJiukpUZ4",
+      "label": "PULL",
+      "position": {
+        "x": 170,
+        "y": 0
+      },
+      "type": "xod/patch-nodes/input-boolean"
+    },
+    {
       "description": "Fires if update failed. E.g. `PORT` does not exist.",
       "id": "S1fi5aqyQ",
       "label": "ERR",
